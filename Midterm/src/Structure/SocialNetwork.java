@@ -20,11 +20,30 @@ public class SocialNetwork {
         
     }
     
+    /**
+     * Create new person and add them to the network
+     * @param first
+     * @param last
+     * @return 
+     */
     public boolean createPerson(String first, String last) {
         boolean createdPerson = false;
             Person newPerson = new Person(first, last);
             _peopleList.add(newPerson);
         return createdPerson;
+    }
+    
+    /**
+     * Send message from one user to another
+     * @param message
+     * @return 
+     */
+    public boolean sendMessage(Message message) {
+        boolean sentMessage = false;
+        
+        
+        
+        return sentMessage;
     }
     
     public String toString() {

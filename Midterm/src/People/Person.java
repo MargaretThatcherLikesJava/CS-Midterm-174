@@ -16,26 +16,24 @@ public class Person implements Messagable {
     private String _firstName;
     private String _lastName;
     private static int _id;
-    protected ArrayList<Person> _friendsList = new ArrayList<Person>();
-    protected ArrayList<Message> _messagesList = new ArrayList<Message>();
-    protected ArrayList<Person> _blockedList = new ArrayList<Person>();
+    protected ArrayList<Person> _friendsList;
+    protected ArrayList<Message> _messagesList;
+    protected ArrayList<Person> _blockedList;
     
     public Person(String firstName, String lastName) {
         _firstName = firstName;
         _lastName = lastName;
-        _id++;       
+        _id++;  
+        _friendsList = new ArrayList<Person>();
+        _messagesList = new ArrayList<Message>();
+        _blockedList = new ArrayList<Person>();
     }
     
     public String getFirstName() {
         return _firstName;
     }
-    
     public String getLastName() {
         return _lastName;
-    }
-    
-    public int getId() {
-        return _id;
     }
     
     /**
@@ -54,16 +52,7 @@ public class Person implements Messagable {
      * @return 
      */
     public boolean isBlocked(Person p) {
-        boolean blocked = false;
-        if (_blockedList == null) { // if blocked list empty, not blocked
-            blocked = false;
-        } 
-        for (int i = 0; i < _blockedList.size(); i++) {
-            if (p.equals(_blockedList.get(i))) {
-                blocked = true;
-                //System.out.println(p + "is BLOCKED  by " + this._firstName);
-            }
-        }
+        boolean blocked = this._blockedList.contains(p) || p._blockedList.contains(this);
         return blocked;
     }
     
@@ -72,16 +61,8 @@ public class Person implements Messagable {
      * @param p
      * @return 
      */
-    public boolean isDuplicate(Person p, ArrayList<Person> pList) {
-        boolean duplicate = false;
-        if (pList == null) { // if friends list empty, not duplicate
-            duplicate = false;
-        }
-        for (int i = 0; i < pList.size(); i++) {
-            if (p.equals(pList.get(i))) {
-                duplicate = true;
-            }
-        }
+    public boolean isDuplicate(Person p) {
+        boolean duplicate = this._friendsList.contains(p) || p._friendsList.contains(this);
         return duplicate;
     }
     
@@ -92,7 +73,7 @@ public class Person implements Messagable {
      */
     public boolean addFriend(Person p) {
         boolean addedFriend = false;    
-        if (!isBlocked(p) && !isDuplicate(p, _friendsList)) { // check blocked, duplicate
+        if (!isBlocked(p) && !isDuplicate(p)) { // check blocked, duplicate
             addedFriend = true;
             this._friendsList.add(p);
             // ADD OTHER FRIEND
@@ -110,7 +91,7 @@ public class Person implements Messagable {
      */
     public boolean addBlock(Person p) {
         boolean hasBlocked = false;
-        if(!isBlocked(p) && !isDuplicate(p, _blockedList)) {
+        if(!isBlocked(p) && !isDuplicate(p)) {
             this._blockedList.add(p);
         } else {
             hasBlocked = false;
@@ -118,15 +99,12 @@ public class Person implements Messagable {
         return hasBlocked;
     }
     
-    public boolean receiveMessage(Message m, Person p) {
+    public boolean receiveMessage(Message m) {
         boolean receivedMessage = false;
-        if (!isBlocked(p)) {
-            _messagesList.add(m);
-            receivedMessage = true;
-        }
         return receivedMessage;
     }
     
+    @Override
     public String toString() {
         String displayFirstName = _firstName;
         String displayLastName = _lastName;

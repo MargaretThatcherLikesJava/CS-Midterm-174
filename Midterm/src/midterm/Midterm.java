@@ -37,13 +37,7 @@ public class Midterm {
         System.out.println(result);
         */
         
-        SocialNetwork newSocial = new SocialNetwork();
-        newSocial.createPerson("george", "wash");
-        System.out.println(newSocial);
-        newSocial.createPerson("george", "wash");
-        System.out.println(newSocial);
         
-
         
     }
     
