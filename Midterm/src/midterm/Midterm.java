@@ -20,24 +20,14 @@ public class Midterm {
      */
     public static void main(String[] args) {
         
-        Person person1 = new Person("George", "Washington");
-        Person person2 = new Person("Abraham", "Lincoln");
-        Person person3 = new Person("George", "Washington");
+        SocialNetwork socialNet = new SocialNetwork();
+        boolean result1 = socialNet.createPerson("John", "Smith");
+        socialNet.createPerson("John", "Doe");
+        socialNet.createPerson("Jane", "Doe");
 
-        /*
-        person1.addFriend(person2);
-        System.out.println(person1);
-        System.out.println(person2);
-        */
+        System.out.println(result1);
         
-        /*
-        person1.addBlock(person2);
-        System.out.println(person1);
-        boolean result = person1.isBlocked(person2);
-        System.out.println(result);
-        */
-        
-        
+        System.out.println(socialNet);
         
     }
     

@@ -12,7 +12,7 @@ import People.*;
  */
 public interface Friendable {
     
-    public boolean addFriend(Person p);
+    public boolean addFriend(Person p, int n);
     public boolean unfriend(Person p);
     
 }

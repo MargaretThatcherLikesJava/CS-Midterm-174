@@ -12,6 +12,6 @@ import People.*;
  */
 public interface Messagable {
     
-    public boolean receiveMessage(Message m);
+    public boolean receiveMessage(String m);
     
 }
